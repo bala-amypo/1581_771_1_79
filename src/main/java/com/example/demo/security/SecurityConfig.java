@@ -22,12 +22,12 @@ public class SecurityConfig {
     }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable() // Disabled for stateless REST API [cite: 1726]
+        http.csrf().disable()
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/**").permitAll() // Public access for registration/login [cite: 1729]
-                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll() // Public access for Swagger [cite: 1729]
-                .requestMatchers("/api/locations/**").hasRole("ADMIN") // Role-based access for locations [cite: 1516]
-                .anyRequest().authenticated() // All other endpoints require JWT [cite: 1600]
+                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .requestMatchers("/api/locations/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
             )
             .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
