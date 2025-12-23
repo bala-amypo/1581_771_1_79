@@ -12,9 +12,8 @@ public class OpenApiConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-                // You need to change the port as per your server
                 .servers(List.of(
-                        new Server().url("https://9294.408procr.amypo.ai")
+                        new Server().url("https://9105.pro604cr.amypo.ai")
                 ));
         }
 }
