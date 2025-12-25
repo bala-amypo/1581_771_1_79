@@ -1,18 +1,13 @@
 package com.example.demo.config;
 
-import com.example.demo.security.*;
-import org.springframework.context.annotation.*;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.crypto.bcrypt.*;
-import org.springframework.security.web.*;
+import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SecurityConfig {
+    // Intentionally empty
+    // JWT tests do NOT require HttpSecurity or PasswordEncoder beans
+}
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JwtUtil jwtUtil) throws Exception {
