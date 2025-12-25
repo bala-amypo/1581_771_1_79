@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SecurityConfig {
     // Intentionally empty
-    // JWT tests do NOT require HttpSecurity or PasswordEncoder beans
 }
+
 
 
     @Bean
