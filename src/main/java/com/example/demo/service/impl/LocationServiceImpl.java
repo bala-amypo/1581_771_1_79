@@ -5,30 +5,17 @@ import com.example.demo.repository.LocationRepository;
 import com.example.demo.service.LocationService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class LocationServiceImpl implements LocationService {
 
-    private final LocationRepository locationRepository;
+    private final LocationRepository repository;
 
-    public LocationServiceImpl(LocationRepository locationRepository) {
-        this.locationRepository = locationRepository;
+    public LocationServiceImpl(LocationRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public Location createLocation(Location location) {
-        return locationRepository.save(location);
-    }
-
-    @Override
-    public Location getLocation(Long id) {
-        return locationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Location not found"));
-    }
-
-    @Override
-    public List<Location> getAllLocations() {
-        return locationRepository.findAll();
+    public Location save(Location location) {
+        return repository.save(location);
     }
 }

@@ -3,34 +3,33 @@ package com.example.demo.service.impl;
 import com.example.demo.entity.RouteOptimizationResult;
 import com.example.demo.entity.Shipment;
 import com.example.demo.repository.RouteOptimizationResultRepository;
-import com.example.demo.repository.ShipmentRepository;
 import com.example.demo.service.RouteOptimizationService;
 import org.springframework.stereotype.Service;
 
 @Service
 public class RouteOptimizationServiceImpl implements RouteOptimizationService {
 
-    private final ShipmentRepository shipmentRepository;
-    private final RouteOptimizationResultRepository resultRepository;
+    private final RouteOptimizationResultRepository repository;
 
-    public RouteOptimizationServiceImpl(ShipmentRepository shipmentRepository,
-                                        RouteOptimizationResultRepository resultRepository) {
-        this.shipmentRepository = shipmentRepository;
-        this.resultRepository = resultRepository;
+    public RouteOptimizationServiceImpl(RouteOptimizationResultRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public RouteOptimizationResult optimizeRoute(Long shipmentId) {
+    public RouteOptimizationResult optimize(Shipment shipment) {
 
-        Shipment shipment = shipmentRepository.findById(shipmentId)
-                .orElseThrow(() -> new RuntimeException("Shipment not found"));
+        RouteOptimizationResult result = RouteOptimizationResult.builder()
+                .shipment(shipment)
+                .optimizedDistanceKm(100)
+                .estimatedTimeHours(2)
+                .estimatedFuelUsage(10)
+                .build();
 
-        RouteOptimizationResult result = new RouteOptimizationResult();
-        result.setShipment(shipment);
-        result.setOptimizedDistanceKm(120.0);
-        result.setEstimatedTimeHours(6.0);
-        result.setFuelCostEstimate(700.0);
+        return repository.save(result);
+    }
 
-        return resultRepository.save(result);
+    @Override
+    public RouteOptimizationResult getResult(Long id) {
+        return repository.findById(id).orElse(null);
     }
 }
