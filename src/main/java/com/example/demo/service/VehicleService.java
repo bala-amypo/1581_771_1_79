@@ -1,7 +1,4 @@
-package com.example.demo.service;
-
-import com.example.demo.entity.Vehicle;
-
 public interface VehicleService {
-    Vehicle save(Vehicle vehicle);
+    Vehicle addVehicle(Long userId, Vehicle vehicle);
+    List<Vehicle> getVehiclesByUser(Long userId);
 }
