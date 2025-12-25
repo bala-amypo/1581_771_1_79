@@ -1,8 +1,10 @@
 package com.example.demo.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.demo.entity.RouteOptimizationResult;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface RouteOptimizationResultRepository 
+@Repository
+public interface RouteOptimizationResultRepository
         extends JpaRepository<RouteOptimizationResult, Long> {
 }
