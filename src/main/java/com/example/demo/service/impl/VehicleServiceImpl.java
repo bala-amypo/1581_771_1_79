@@ -1,11 +1,10 @@
 package com.example.demo.service.impl;
 
+import java.util.List;
+import org.springframework.stereotype.Service;
 import com.example.demo.entity.Vehicle;
 import com.example.demo.repository.VehicleRepository;
 import com.example.demo.service.VehicleService;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class VehicleServiceImpl implements VehicleService {
@@ -17,17 +16,12 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public Vehicle save(Vehicle vehicle) {
+    public Vehicle addVehicle(Long userId, Vehicle vehicle) {
         return repository.save(vehicle);
     }
 
     @Override
-    public Vehicle findById(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public List<Vehicle> findAll() {
+    public List<Vehicle> getVehiclesByUser(Long userId) {
         return repository.findAll();
     }
 }
