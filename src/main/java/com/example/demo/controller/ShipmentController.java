@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
-import org.springframework.web.bind.annotation.*;
 import com.example.demo.entity.Shipment;
 import com.example.demo.service.ShipmentService;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/shipments")
