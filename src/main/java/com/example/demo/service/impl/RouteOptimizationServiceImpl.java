@@ -1,42 +1,35 @@
 package com.example.demo.service.impl;
 
-import org.springframework.stereotype.Service;
 import com.example.demo.entity.RouteOptimizationResult;
 import com.example.demo.entity.Shipment;
 import com.example.demo.repository.RouteOptimizationResultRepository;
 import com.example.demo.repository.ShipmentRepository;
 import com.example.demo.service.RouteOptimizationService;
+import org.springframework.stereotype.Service;
 
 @Service
 public class RouteOptimizationServiceImpl implements RouteOptimizationService {
 
-    private final RouteOptimizationResultRepository resultRepo;
     private final ShipmentRepository shipmentRepo;
+    private final RouteOptimizationResultRepository resultRepo;
 
-    public RouteOptimizationServiceImpl(
-            RouteOptimizationResultRepository resultRepo,
-            ShipmentRepository shipmentRepo) {
-        this.resultRepo = resultRepo;
+    public RouteOptimizationServiceImpl(ShipmentRepository shipmentRepo,
+                                        RouteOptimizationResultRepository resultRepo) {
         this.shipmentRepo = shipmentRepo;
+        this.resultRepo = resultRepo;
     }
 
     @Override
     public RouteOptimizationResult optimizeRoute(Long shipmentId) {
-
-        Shipment shipment = shipmentRepo.findById(shipmentId).orElse(null);
+        Shipment shipment = shipmentRepo.findById(shipmentId).orElseThrow();
 
         RouteOptimizationResult result = RouteOptimizationResult.builder()
                 .shipment(shipment)
-                .optimizedDistanceKm(120.0)
-                .estimatedTimeHours(3.0)
-                .estimatedFuelUsage(15.0)
+                .optimizedDistanceKm(100)
+                .estimatedTimeHours(2)
+                .estimatedFuelUsage(10)
                 .build();
 
         return resultRepo.save(result);
-    }
-
-    @Override
-    public RouteOptimizationResult getResult(Long id) {
-        return resultRepo.findById(id).orElse(null);
     }
 }
