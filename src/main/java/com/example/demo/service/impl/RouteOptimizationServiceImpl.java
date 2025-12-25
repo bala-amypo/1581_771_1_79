@@ -24,7 +24,7 @@ public class RouteOptimizationServiceImpl implements RouteOptimizationService {
         Shipment shipment = shipmentRepo.findById(shipmentId).orElseThrow();
 
         RouteOptimizationResult result = RouteOptimizationResult.builder()
-                .shipment(shipment)
+                .shipmentId(shipment.getId())
                 .optimizedDistanceKm(100)
                 .estimatedTimeHours(2)
                 .estimatedFuelUsage(10)
