@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -14,12 +15,14 @@ public class Shipment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private double weightKg;
+
+    @ManyToOne
+    private Location pickupLocation;
+
+    @ManyToOne
+    private Location dropLocation;
+
     @ManyToOne
     private Vehicle vehicle;
-
-    @ManyToOne
-    private Location source;
-
-    @ManyToOne
-    private Location destination;
 }
