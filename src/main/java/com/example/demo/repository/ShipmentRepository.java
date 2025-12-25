@@ -1,6 +1,14 @@
-package com.example.demo.repository;
+@Repository
+public class ShipmentRepository {
 
-import com.example.demo.entity.Shipment;
+    private final Map<Long, Shipment> store = new HashMap<>();
 
-public interface ShipmentRepository extends JpaRepository<Shipment, Long> {
+    public Shipment save(Shipment s) {
+        store.put(s.getId(), s);
+        return s;
+    }
+
+    public Optional<Shipment> findById(Long id) {
+        return Optional.ofNullable(store.get(id));
+    }
 }

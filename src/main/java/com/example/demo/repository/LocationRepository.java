@@ -1,6 +1,14 @@
-package com.example.demo.repository;
+@Repository
+public class LocationRepository {
 
-import com.example.demo.entity.Location;
+    private final Map<Long, Location> store = new HashMap<>();
 
-public interface LocationRepository extends JpaRepository<Location, Long> {
+    public Location save(Location l) {
+        store.put(l.getId(), l);
+        return l;
+    }
+
+    public List<Location> findAll() {
+        return new ArrayList<>(store.values());
+    }
 }
