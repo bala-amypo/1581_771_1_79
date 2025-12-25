@@ -1,10 +1,13 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.User;
-
-import java.util.Optional;
+import com.example.demo.exception.ResourceNotFoundException;
 
 public interface UserService {
+
     User register(User user);
-    Optional<User> findByEmail(String email);
+
+    User findByEmail(String email) throws ResourceNotFoundException;
+
+    User findById(Long userId) throws ResourceNotFoundException;
 }

@@ -3,12 +3,12 @@ package com.example.demo.dto;
 import lombok.*;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class ApiResponse {
+public class ApiResponse<T> {
 
     private boolean success;
     private String message;
-    private Object data;
+    private T data;
 }
