@@ -1,36 +1,31 @@
 package com.example.demo.security;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.stereotype.Component;
 
 import java.security.Key;
-import java.util.*;
+import java.util.Date;
 
-@Component
 public class JwtUtil {
 
     private final Key key;
-    private final long validityMs;
+    private final long expirationMillis;
 
-    public JwtUtil(String secret, long validityMs) {
+    public JwtUtil(String secret, long expirationMillis) {
         this.key = Keys.hmacShaKeyFor(secret.getBytes());
-        this.validityMs = validityMs;
+        this.expirationMillis = expirationMillis;
     }
 
     public String generateToken(Long userId, String email, String role) {
-        Claims claims = Jwts.claims();
-        claims.put("userId", userId);
-        claims.put("email", email);
-        claims.put("role", role);
-
-        Date now = new Date();
-        Date exp = new Date(now.getTime() + validityMs);
-
         return Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(now)
-                .setExpiration(exp)
+                .claim("userId", userId)
+                .claim("email", email)
+                .claim("role", role)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expirationMillis))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
