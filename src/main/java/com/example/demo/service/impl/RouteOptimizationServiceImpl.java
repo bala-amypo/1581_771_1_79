@@ -6,7 +6,9 @@ import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.RouteOptimizationResultRepository;
 import com.example.demo.repository.ShipmentRepository;
 import com.example.demo.service.RouteOptimizationService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RouteOptimizationServiceImpl implements RouteOptimizationService {
 
     private final ShipmentRepository shipmentRepository;
@@ -30,7 +32,7 @@ public class RouteOptimizationServiceImpl implements RouteOptimizationService {
         double lat2 = shipment.getDropLocation().getLatitude();
         double lon2 = shipment.getDropLocation().getLongitude();
 
-        double distance = Math.hypot(lat2 - lat1, lon2 - lon1) * 111;
+        double distance = Math.hypot(lat2 - lat1, lon2 - lon1);
         if (distance <= 0) distance = 1.0;
 
         double fuel = distance / shipment.getVehicle().getFuelEfficiency();
