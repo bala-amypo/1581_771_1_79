@@ -1,14 +1,8 @@
-@Repository
-public class RouteOptimizationResultRepository {
+package com.example.demo.repository;
 
-    private final Map<Long, RouteOptimizationResult> store = new HashMap<>();
+import com.example.demo.entity.RouteOptimizationResult;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-    public RouteOptimizationResult save(RouteOptimizationResult r) {
-        store.put(r.getShipmentId(), r);
-        return r;
-    }
-
-    public Optional<RouteOptimizationResult> findByShipmentId(Long id) {
-        return Optional.ofNullable(store.get(id));
-    }
+public interface RouteOptimizationResultRepository
+        extends JpaRepository<RouteOptimizationResult, Long> {
 }

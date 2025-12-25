@@ -1,14 +1,7 @@
-@Repository
-public class LocationRepository {
+package com.example.demo.repository;
 
-    private final Map<Long, Location> store = new HashMap<>();
+import com.example.demo.entity.Location;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-    public Location save(Location l) {
-        store.put(l.getId(), l);
-        return l;
-    }
-
-    public List<Location> findAll() {
-        return new ArrayList<>(store.values());
-    }
+public interface LocationRepository extends JpaRepository<Location, Long> {
 }
