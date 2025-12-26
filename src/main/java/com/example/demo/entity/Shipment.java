@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class Shipment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer weightKg;
+    private Double weightKg;
 
     private LocalDate scheduledDate;
 
@@ -33,18 +34,26 @@ public class Shipment {
     @JsonIgnore
     private List<RouteOptimizationResult> optimizationResults;
 
-    public Shipment() {}
+    // ====== CONSTRUCTORS ======
+    public Shipment() {
+    }
+
+    // ====== GETTERS & SETTERS ======
 
     public Long getId() {
         return id;
     }
 
-    public Integer getWeightKg() {
+    public Double getWeightKg() {
         return weightKg;
     }
 
     public LocalDate getScheduledDate() {
         return scheduledDate;
+    }
+
+    public Vehicle getVehicle() {          // ✅ MUST BE INSIDE CLASS
+        return vehicle;
     }
 
     public Location getPickupLocation() {
@@ -59,7 +68,7 @@ public class Shipment {
         this.id = id;
     }
 
-    public void setWeightKg(Integer weightKg) {
+    public void setWeightKg(Double weightKg) {
         this.weightKg = weightKg;
     }
 
@@ -78,7 +87,4 @@ public class Shipment {
     public void setDropLocation(Location dropLocation) {
         this.dropLocation = dropLocation;
     }
-}
-public Vehicle getVehicle() {
-    return vehicle;
 }
