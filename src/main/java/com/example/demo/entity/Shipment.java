@@ -79,3 +79,6 @@ public class Shipment {
         this.dropLocation = dropLocation;
     }
 }
+public Vehicle getVehicle() {
+    return vehicle;
+}
