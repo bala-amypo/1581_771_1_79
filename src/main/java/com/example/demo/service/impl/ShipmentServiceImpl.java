@@ -1,6 +1,5 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.dto.ShipmentRequest;
 import com.example.demo.entity.Location;
 import com.example.demo.entity.Shipment;
 import com.example.demo.entity.Vehicle;
@@ -29,34 +28,33 @@ public class ShipmentServiceImpl implements ShipmentService {
     }
 
     @Override
-    public Shipment createShipment(Long vehicleId, ShipmentRequest request) {
+    public Shipment createShipment(Long vehicleId, Shipment shipment) {
 
         Vehicle vehicle = vehicleRepository.findById(vehicleId)
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Vehicle not found"));
 
-        if (request.getWeightKg() > vehicle.getCapacityKg()) {
+        if (shipment.getWeightKg() > vehicle.getCapacityKg()) {
             throw new IllegalArgumentException("Weight exceeds vehicle capacity");
         }
 
-        if (request.getScheduledDate().isBefore(LocalDate.now())) {
+        if (shipment.getScheduledDate().isBefore(LocalDate.now())) {
             throw new IllegalArgumentException("Date cannot be in the past");
         }
 
-        Location pickup = locationRepository.findById(request.getPickupLocationId())
+        Location pickup = locationRepository.findById(
+                shipment.getPickupLocation().getId())
                 .orElseThrow(() ->
-                        new ResourceNotFoundException("Pickup location not found"));
+                        new ResourceNotFoundException("Location not found"));
 
-        Location drop = locationRepository.findById(request.getDropLocationId())
+        Location drop = locationRepository.findById(
+                shipment.getDropLocation().getId())
                 .orElseThrow(() ->
-                        new ResourceNotFoundException("Drop location not found"));
+                        new ResourceNotFoundException("Location not found"));
 
-        Shipment shipment = new Shipment();
         shipment.setVehicle(vehicle);
         shipment.setPickupLocation(pickup);
         shipment.setDropLocation(drop);
-        shipment.setWeightKg(request.getWeightKg());
-        shipment.setScheduledDate(request.getScheduledDate());
 
         return shipmentRepository.save(shipment);
     }
