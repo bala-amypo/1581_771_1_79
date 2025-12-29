@@ -48,7 +48,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "shipments")
-@Data   // ✅ IMPORTANT – restores getters/setters/builders
+@Data  
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -60,7 +60,7 @@ public class Shipment {
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id", nullable = false)
-    @JsonIgnore   // ✅ prevents infinite loop
+    @JsonIgnore   
     private Vehicle vehicle;
 
     @ManyToOne
@@ -76,6 +76,6 @@ public class Shipment {
     private LocalDate scheduledDate;
 
     @OneToMany(mappedBy = "shipment", cascade = CascadeType.ALL)
-    @JsonIgnore   // ✅ prevents loop
+    @JsonIgnore  
     private List<RouteOptimizationResult> optimizationResults;
 }

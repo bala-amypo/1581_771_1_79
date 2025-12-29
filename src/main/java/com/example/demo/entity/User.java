@@ -68,6 +68,6 @@ public class User {
     private String role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonIgnore   // 🔴 ADD THIS LINE
+    @JsonIgnore
     private List<Vehicle> vehicles;
 }
