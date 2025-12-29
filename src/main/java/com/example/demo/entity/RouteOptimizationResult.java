@@ -42,8 +42,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "route_optimization_results")
-@Getter
-@Setter
+@Data   // ✅ REQUIRED
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -53,10 +52,9 @@ public class RouteOptimizationResult {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // 🔴 BACK REFERENCE CAUSING LOOP
     @ManyToOne
     @JoinColumn(name = "shipment_id", nullable = false)
-    @JsonIgnore   // ✅ REQUIRED
+    @JsonIgnore   // ✅ prevents recursion
     private Shipment shipment;
 
     private Double optimizedDistanceKm;
@@ -66,7 +64,7 @@ public class RouteOptimizationResult {
     private LocalDateTime generatedAt;
 
     @PrePersist
-    void onCreate() {
+    protected void onCreate() {
         this.generatedAt = LocalDateTime.now();
     }
 }
