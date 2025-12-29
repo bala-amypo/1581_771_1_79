@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "route_optimization_results")
-@Data   // ✅ REQUIRED
+@Data   
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -20,7 +20,7 @@ public class RouteOptimizationResult {
 
     @ManyToOne
     @JoinColumn(name = "shipment_id", nullable = false)
-    @JsonIgnore   // ✅ prevents recursion
+    @JsonIgnore   
     private Shipment shipment;
 
     private Double optimizedDistanceKm;
