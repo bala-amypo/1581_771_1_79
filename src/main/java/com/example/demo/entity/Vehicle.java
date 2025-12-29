@@ -1,5 +1,6 @@
 // package com.example.demo.entity;
 
+// import com.fasterxml.jackson.annotation.JsonIgnore;
 // import jakarta.persistence.*;
 // import lombok.*;
 
@@ -22,6 +23,7 @@
 
 //     @ManyToOne
 //     @JoinColumn(name = "user_id", nullable = false)
+//     @JsonIgnore   // 🔴 ADD THIS LINE
 //     private User user;
 
 //     @Column(nullable = false, unique = true)
@@ -34,7 +36,8 @@
 //     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
 //     private List<Shipment> shipments;
 // }
- 
+
+
 package com.example.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -44,10 +47,7 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Table(
-        name = "vehicles",
-        uniqueConstraints = @UniqueConstraint(columnNames = "vehicleNumber")
-)
+@Table(name = "vehicles")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -58,12 +58,6 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    @JsonIgnore   // 🔴 ADD THIS LINE
-    private User user;
-
-    @Column(nullable = false, unique = true)
     private String vehicleNumber;
 
     private Double capacityKg;
@@ -71,7 +65,6 @@ public class Vehicle {
     private Double fuelEfficiency;
 
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
+    @JsonIgnore   // ✅ BREAKS LOOP
     private List<Shipment> shipments;
 }
-
-
