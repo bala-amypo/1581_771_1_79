@@ -1,5 +1,6 @@
-package com.example.demo.entity;
+// package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,7 +9,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "shipments")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -18,8 +20,10 @@ public class Shipment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // 🔴 THIS IS THE MAIN LOOP CAUSE
     @ManyToOne
     @JoinColumn(name = "vehicle_id", nullable = false)
+    @JsonIgnore   // ✅ REQUIRED
     private Vehicle vehicle;
 
     @ManyToOne
@@ -34,6 +38,8 @@ public class Shipment {
 
     private LocalDate scheduledDate;
 
+    // 🔴 SECOND LOOP CAUSE
     @OneToMany(mappedBy = "shipment", cascade = CascadeType.ALL)
+    @JsonIgnore   // ✅ REQUIRED
     private List<RouteOptimizationResult> optimizationResults;
 }
